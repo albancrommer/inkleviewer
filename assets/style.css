@@ -1,0 +1,95 @@
+html, body {
+    background: #eee;
+    font-family: serif;
+    height:100%;
+    margin:0;
+}
+
+.main-container {
+    height:100%;
+    display:flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    -webkit-flex-direction: row;
+    -webkit-align-content: stretch;
+    align-content: stretch;
+}
+
+.left {
+    background-color: #333;
+    color: #ccc;
+    width: 30px;
+    transition: 1s; 
+}
+.left:hover {
+    width: 300px;
+}
+.left .menu{
+    display: none;
+}
+.left:hover .menu{
+    display: block;
+}
+
+.right {
+    -webkit-flex: 1;
+    position: relative;
+    width: 90%;
+    background: #f8f8f8;
+    padding: 0px 24px;
+    box-shadow: 0 0 7px 0px #888 inset;
+    height: 100%;
+    overflow-y: scroll;
+    background: #f8f8f8;
+}
+.textcenter *{
+    text-align: center;
+}
+.scrollable {
+     overflow-y:auto;
+}
+
+ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+li {
+    list-style: none;
+    padding: 4px 16px;
+    font-size: 16pt;
+    margin: 0px;
+}
+p {
+    color: #333;
+    margin: 8px 0px;
+    font-size: 24pt;
+}
+p b {
+    font-style: italic;
+}
+.right a {
+    font-size:24pt;
+}
+
+.fade {
+    -webkit-animation: fade 1s;
+    animation: fade 1s;
+    opacity: 1;
+}
+/* -fail- */
+@-webkit-keyframes fade {
+    from {opacity: 0}
+    to {opacity: 1}
+}@keyframes fade {
+    from {opacity: 0}
+    to {opacity: 1}
+}
+
+div p:first-child {
+    padding-top: 24px;
+}
+div p:last-child {
+    color:#000;
+    padding-bottom: 48px;
+}
