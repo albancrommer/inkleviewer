@@ -19,7 +19,7 @@ html, body {
     background-color: #333;
     color: #ccc;
     width: 30px;
-    transition: 1s; 
+    transition: 250ms; 
 }
 .left:hover {
     width: 300px;
@@ -29,6 +29,10 @@ html, body {
 }
 .left:hover .menu{
     display: block;
+}
+
+.left #speedMenu{
+    padding-left:8px;
 }
 
 .right {
@@ -64,9 +68,6 @@ p {
     color: #333;
     margin: 8px 0px;
     font-size: 24pt;
-}
-p b {
-    font-style: italic;
 }
 .right a {
     font-size:24pt;
