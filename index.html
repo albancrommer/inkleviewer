@@ -2,7 +2,7 @@
     <head>
         <title>Libinkle</title>
         <script src="assets/libinkle.js"></script>
-        <link href="assets/style.css" media="all" rel="stylesheet" />    
+        <link href="assets/style.css" media="all" rel="stylesheet" />
     </head>
     <body id="body">
 
@@ -12,16 +12,17 @@
                     <ul>
                         <li><a rel="h6b8">EN: A D J U N C T</a></li>
                         <li><a rel="5vf3">EN: The Golden Acorn</a></li>
-                        <li><a rel="f9h3">EN: Dawn Meadows in Winter Wonderland</a></li>            
-                        <li><a rel="pcnx">EN: When I Grow Up</a></li>            
-                        <li><a rel="3qgx">EN: Malkuth</a></li>            
-                        <li><a rel="8v99">FR: Le chemin de Val Ferrier</a></li>            
+                        <li><a rel="f9h3">EN: Dawn Meadows in Winter Wonderland</a></li>
+                        <li><a rel="pcnx">EN: When I Grow Up</a></li>
+                        <li><a rel="3qgx">EN: Malkuth</a></li>
+                        <li><a rel="8v99">FR: Le chemin de Val Ferrier</a></li>
                     </ul>
                 </div>
             </div>
             <div class="right" id="out">
                 <div id="firstMenu" class="textcenter">
-                    <pre><-------- story menu | configuration menu -----></pre> 
+                    <pre><-------- story menu | configuration menu -----    ></pre>
+                    <h1>Choose a story</h1>
                 </div>
             </div>
             <div class="left">
@@ -57,7 +58,7 @@
                         queue.msPerChar = speed;
                     }
                 }
-                
+
                 // Select a story on click
                 var linkList = document.getElementsByTagName('a');
                 for (var i = 0; i < linkList.length; i++) {
@@ -127,16 +128,16 @@
                     }
                     this.setSpeed = function( msPerChar ){
                         this.msPerChar = msPerChar;
-                        this.setReadDelay(); 
+                        this.setReadDelay();
                     }
-                    
+
                     this.setReadDelay = function( ){
                         var current = instance.paragraphsList[0][0];
                         var newDelay = current.length * instance.msPerChar;
                         instance.readDelay = newDelay;
                         instance.lastSend = new Date().getTime();
                     }
-                    
+
                     this.setTick();
                     return this;
                 };
