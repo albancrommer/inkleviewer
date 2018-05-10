@@ -19,7 +19,7 @@ html, body {
     background-color: #333;
     color: #ccc;
     width: 30px;
-    transition: 250ms; 
+    transition: 250ms;
 }
 .left:hover {
     width: 300px;
@@ -93,4 +93,26 @@ div p:first-child {
 div p:last-child {
     color:#000;
     padding-bottom: 48px;
+}
+.modal {
+    background: #333;
+    color: #ccc;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    z-index: 2;
+}
+
+.modal dl * {
+    font-size: 12pt;
+    color:#ccc;
+    
+}
+.modal dl a {
+    font-size: 16pt;
+    color:#e8e8e8;
+    
 }

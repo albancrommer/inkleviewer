@@ -14,12 +14,12 @@ const _ = require('lodash');
 /**
  * Story Model
  * Encapsulates an inkle history metadata and stitches list
- * @param {string} string   Stringified JSON object
+ * @param {string|object} source   Stringified JSON object
  * @class 
  */
-var storyModel = function (string, inkle) {
+var storyModel = function (source, inkle) {
     this.inkle = inkle;
-    this.story = JSON.parse(string);
+    this.story = _.isObject(source) ? source : JSON.parse(source);
     this.stitches = this.story.data.stitches;
     /**
      * A simple object to access the critical story informations
@@ -59,6 +59,7 @@ var stitchModel = function (stitch, name, inkle) {
     var content = stitch.content;
     this.name = name || 'unknown';
     this.choices = {};
+
     content.forEach((value, key) => {
         // is it a message
         if (_.isString(value)) {
@@ -132,6 +133,8 @@ inkle = function (options) {
     this.flagList = [];
     this.paragraphList = null;
     this.choicesList = null;
+    this.choicesPath = [];
+    this.stitchesPath = [];
     var story = this.story || null;
     if (_.has(this, 'source')) {
         this.story = new storyModel(this.source, this);
@@ -187,6 +190,7 @@ inkle.prototype.getAllStitches = function (currentStitch) {
     this.choicesList = [];
     var nextStitch = '';
     while (final === false && choice === false) {
+        this.stitchesPath.push(currentStitch.name)
         this.paragraphList.push(currentStitch.getText());
         if (currentStitch.isChoice()) {
             choice = true;
@@ -195,7 +199,7 @@ inkle.prototype.getAllStitches = function (currentStitch) {
             final = true;
         } else {
             nextStitch = currentStitch.nextStitch();
-            currentStitch = this.story.getStitch(nextStitch)
+            currentStitch = this.story.getStitch(nextStitch);
         }
     }
     return true;
@@ -236,6 +240,7 @@ inkle.prototype.getChoicesByName = function () {
  * @returns {Boolean}
  */
 inkle.prototype.choose = function (stitch_name) {
+    this.choicesPath.push( stitch_name );
     return this.start(stitch_name);
 };
 
@@ -268,6 +273,22 @@ inkle.prototype.isNotFinished = function () {
  */
 inkle.prototype.isFinished = function () {
     return this.getChoicesByName().length === 0;
+};
+
+inkle.prototype.rollback = function( index, stitch_name ){
+    var newChoicesPath = _.slice( this.choicesPath, 0, index );
+    this.choicesPath = newChoicesPath;
+    this.currentStitches = this.choose( stitch_name );
+}
+
+inkle.prototype.rollbackByIndex = function( index ){
+    var stitch_name = this.choicesPath[index];
+    this.rollback( index, stitch_name );
+};
+
+inkle.prototype.rollbackByName = function( stitch_name ){
+    var index = _.indexOf( this.choicesPath, stitch_name );
+    this.rollback( index, stitch_name );
 };
 
 
