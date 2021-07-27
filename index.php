@@ -1,4 +1,4 @@
-<?php require("mvc.php") ?>
+<?php // require("mvc.php") ?>
 <html>
     <head>
         <title>Libinkle</title>
