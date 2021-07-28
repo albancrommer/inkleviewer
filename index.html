@@ -1,62 +1,76 @@
-<html>
+<!DOCTYPE html>
+<html lang="fr-FR" >
     <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <title>Libinkle</title>
         <script src="assets/libinkle.js"></script>
         <link href="assets/style.css" media="all" rel="stylesheet" />
     </head>
-    <body id="body">
-
+    <body>
         <div class="main-container">
-            <div class="left">
-                <div class="menu" id="menu">
-                    <ul>
-                        <li><a rel="h6b8">EN: A D J U N C T</a></li>
-                        <li><a rel="5vf3">EN: The Golden Acorn</a></li>
-                        <li><a rel="f9h3">EN: Dawn Meadows in Winter Wonderland</a></li>
-                        <li><a rel="pcnx">EN: When I Grow Up</a></li>
-                        <li><a rel="3qgx">EN: Malkuth</a></li>
-                        <li><a rel="8v99">FR: Le chemin de Val Ferrier</a></li>
-                    </ul>
-                </div>
+          <div id="toggleMenu">
+            <h3>
+              Choisir...
+            </h3>
             </div>
-            <div class="right" id="out">
-                <div id="firstMenu" class="textcenter">
-                    <pre><-------- story menu | configuration menu -----></pre>
-                </div>
+            <div class="menu" id="menu">
+              <h3>Vitesse de défilement</h3 >
+              <select class="speed">
+                  <option value="1">      Hyper</option>
+                  <option value="15">     Extra</option>
+                  <option value="30">     Rapide +</option>
+                  <option value="35">    Rapide  </option>
+                  <option value="40"  selected="selected">     Normal</option>
+                  <option value="50">     Calme</option>
+                  <option value="60">     Calme+</option>
+                  <option value="90">     Lent</option>
+                  <option value="250">    Très Lent</option>
+              </select>
+              <h3>Histoire</h3>
+                <ul>
+                    <li><a rel="h6b8">EN: A D J U N C T</a></li>
+                    <li><a rel="5vf3">EN: The Golden Acorn</a></li>
+                    <li><a rel="f9h3">EN: Dawn Meadows in Winter Wonderland</a></li>
+                    <li><a rel="pcnx">EN: When I Grow Up</a></li>
+                    <li><a rel="3qgx">EN: Malkuth</a></li>
+                    <li><a rel="8v99">FR: Le chemin de Val Ferrier</a></li>
+                </ul>
             </div>
-            <div class="left">
-                <div id="speedMenu" class="menu">
-                    <h2>Speed</h2>
-                    <div class="form-group"><input name="speed" type="radio" value="1"> <label>      Speed of Light</label>                    </div>
-                    <div class="form-group"><input name="speed" type="radio" value="5"> <label>     Ultra fast</label>                    </div>
-                    <div class="form-group"><input name="speed" type="radio" value="15"> <label>     Xtra fast</label>                    </div>
-                    <div class="form-group"><input name="speed" type="radio" value="30"> <label>     Fast</label>                    </div>
-                    <div class="form-group"><input name="speed" type="radio" value="35" checked="checked"> <label>     Medium </label>                    </div>
-                    <div class="form-group"><input name="speed" type="radio" value="40"> <label>     Normal</label>                    </div>
-                    <div class="form-group"><input name="speed" type="radio" value="50"> <label>     Slower</label>                    </div>
-                    <div class="form-group"><input name="speed" type="radio" value="60"> <label>     Quite slow</label>                    </div>
-                    <div class="form-group"><input name="speed" type="radio" value="90"> <label>     Xtra slow</label>                    </div>
-                    <div class="form-group"><input name="speed" type="radio" value="250"> <label>    Slooooooow</label>                    </div>
-                </div>
-            </div>
-        </div>
+          <div class="right" id="out">
+              <div id="firstMenu" class="textcenter">
+              </div>
+          </div>
+
+      </div>
 
         <script>
             (function () {
 
+
+                // Fill the screen with the menu
                 var menuContent = document.getElementById('menu').innerHTML;
                 document.getElementById('firstMenu').innerHTML += menuContent;
 
-                // Select a speed on click
-                var speedList = document.getElementsByName('speed');
-                for (var i = 0; i < speedList.length; i++) {
-                    var el = speedList[i];
-                    el.onclick = function (event) {
-                        var target = event.target;
-                        var speed = target.value;
-                        queue.msPerChar = speed;
-                    }
+                // Toggle menu
+                toggleMenu = function(hide){
+                  menu                = document.getElementById("menu");
+                  next                = hide || menu.style.display ? "" : "block";
+                  menu.style.display  = next;
                 }
+                document.getElementById("toggleMenu").onclick = function(e){
+                  toggleMenu()
+                }
+
+                // Select a speed on click
+                el                  = document.getElementsByClassName("speed");
+                [...document.getElementsByClassName("speed")].forEach( (el) => {
+                  console.log(el)
+                  el.onchange = function(e){
+                  speed             = this[this.selectedIndex].value;
+                  queue.msPerChar   = speed;
+
+                  }
+                })
 
                 // Select a story on click
                 var linkList = document.getElementsByTagName('a');
@@ -68,7 +82,8 @@
                         if (!story) {
                             return;
                         }
-                        runStory(story)
+                        toggleMenu(true);
+                        runStory(story);
                     }
                 }
 
@@ -76,7 +91,7 @@
 
                 var printQueue = function (options) {
                     this.readDelay = 0;
-                    this.msPerChar = 1; // 40 as an average
+                    this.msPerChar = 40; // 40 as an average
                     this.tickSpeed = 200;
                     this.paragraphsList = [];
                     this.lastSend = new Date().getTime();
@@ -148,7 +163,6 @@
                         el.parentNode.removeChild(el);
                       }
                       instance.add([text],"bold")
-                      console.log(event.target, instance)
                       instance.storyMaster.choose( stitch_name )
                       instance.continue()
                     }
@@ -159,7 +173,11 @@
 
                     this.setReadDelay = function( ){
                         var current = instance.paragraphsList[0];
-                        var newDelay = current.outerText.length * instance.msPerChar;
+                        if( ! current ) {
+                          console.log("oops");
+                          return false;
+                        }
+                        var newDelay = current.innerText.length * instance.msPerChar;
                         instance.readDelay = newDelay;
                         instance.lastSend = new Date().getTime();
                     }
@@ -171,7 +189,7 @@
                         var choicesList = this.storyMaster.getChoicesByName();
                         this.addQuestions(choices,choicesList)
                         if( this.storyMaster.isFinished() ){
-                          queue.add(["The end"], 'bold')
+                          queue.add(["The end... Cliquez sur \"Choisir...\"  pour choisir une histoire."], 'bold')
                         }
                     }
 

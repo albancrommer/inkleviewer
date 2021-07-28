@@ -4,6 +4,12 @@ html, body {
     height:100%;
     margin:0;
 }
+div#toggleMenu {
+  background:#333;
+  color:#eee;
+  padding: 0px 10px;
+  text-align: center;
+}
 
 .main-container {
     height:100%;
@@ -15,27 +21,16 @@ html, body {
     align-content: stretch;
 }
 
-.left {
-    background-color: #333;
-    color: #ccc;
-    width: 30px;
-    transition: 250ms;
-}
-.left:hover {
-    width: 300px;
-}
-.left .menu{
-    display: none;
-}
-.left:hover .menu{
-    display: block;
+
+#menu{
+  background:#333;
+  color:#eee;
+  display:none;
+  max-width: 39%;
 }
 
-.left #speedMenu{
-    padding-left:8px;
-}
 
-.right {
+#out {
     -webkit-flex: 1;
     position: relative;
     width: 90%;
@@ -46,13 +41,11 @@ html, body {
     overflow-y: scroll;
     background: #f8f8f8;
 }
-.textcenter *{
-    text-align: center;
+select {
+    font-size: 1.61em;
+    border-radius: 5px;
+    width: 61%;
 }
-.scrollable {
-     overflow-y:auto;
-}
-
 ul {
     margin: 0px;
     padding: 0px;
@@ -69,7 +62,7 @@ p {
     margin: 8px 0px;
     font-size: 24pt;
 }
-.right a {
+#out a {
     font-size:24pt;
 }
 
@@ -86,32 +79,10 @@ div p:last-child {
     color:#000;
     padding-bottom: 48px;
 }
-.modal {
-    background: #333;
-    color: #ccc;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    text-align: center;
-    width: 100%;
-    z-index: 2;
-}
-
-.modal dl * {
-    font-size: 12pt;
-    color:#ccc;
-
-}
-.modal dl a {
-    font-size: 16pt;
-    color:#e8e8e8;
-
-}
 
 div#out a.choice {
     border: 1px #eee solid;
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow: 0px 0px 3px #888;
     padding: 5px 10px;
     line-height: 1.61em;
@@ -119,3 +90,4 @@ div#out a.choice {
     color: #833;
     text-decoration: none;
 }
+
