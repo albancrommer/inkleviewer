@@ -68,15 +68,14 @@
 
                 // Select a speed on click
                 el                  = document.getElementsByClassName("speed");
-                [...document.getElementsByClassName("speed")].forEach( (el) => {
-                  console.log(el)
+
+                for ( el in document.getElementsByClassName("speed") ){
                   el.onchange = function(e){
                   speed             = this[this.selectedIndex].value;
                   queue.msPerChar   = speed;
 
                   }
-                })
-
+                }
                 // Select a story on click
                 var linkList = document.getElementsByTagName('a');
                 for (var i = 0; i < linkList.length; i++) {
@@ -131,9 +130,9 @@
 
                     this.add = function (paragraphsList, format) {
                         format = format || '';
-                        paragraphsList.forEach((item) => {
+                        for(item in paragraphsList){
                           var p       = document.createElement("p");
-                          var t       = document.createTextNode(item);
+                          var t       = document.createTextNode(paragraphsList[item]);
                           if (format) {
                               var b   = document.createElement("b");
                               b.appendChild(t);
@@ -142,7 +141,9 @@
                               p.appendChild(t);
                           }
                             this.paragraphsList.push(p);
-                        });
+                        };
+
+
                     }
                     this.addQuestions = function (choices) {
                         for (id in choices ){
